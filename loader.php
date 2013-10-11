@@ -53,7 +53,7 @@ foreach($csvFile as $row)
     $i++;
 }
 
-$client = new Client("http://{$stage}.footprintsmd.com");
+$client = new Client("https://{$stage}.footprintsmd.com");
 
 $filePath = explode('/', $cli->input);
 $fileName = $filePath[count($filePath)-1];
@@ -71,6 +71,9 @@ else
 function pushLocations($client, $data)
 {
     global $debug, $bearerToken;
+
+    $failedLines = array();
+    $lineNumber = 0;
 
     foreach($data as $d)
     {
@@ -94,14 +97,32 @@ function pushLocations($client, $data)
             ]
         );
         
-        $request->send();
+        try
+        {
+            $request->send();
+        }
+        catch( Exception $e )
+        {
+            $failedLines[$lineNumber] = $content;
+        }
 
+        $lineNumber++;
+    }
+
+    if ( count($failedLines) > 0 )
+    {
+        echo "The following lines failed:\n";
+        print_r($failedLines);
+        echo "\n";
     }
 }
 
 function pushParameters($client, $data, $parameterType)
 {
     global $debug, $bearerToken;
+
+    $failedLines = array();
+    $lineNumber = 0;
     
     foreach($data as $d)
     {
@@ -129,6 +150,22 @@ function pushParameters($client, $data, $parameterType)
             ]
         );
         
-        $request->send();
+        try
+        {
+            $request->send();
+        }
+        catch( Exception $e )
+        {
+            $failedLines[$lineNumber] = $content;
+        }
+
+        $lineNumber++;
+    }
+
+        if ( count($failedLines) > 0 )
+    {
+        echo "The following lines failed:\n";
+        print_r($failedLines);
+        echo "\n";
     }
 }
