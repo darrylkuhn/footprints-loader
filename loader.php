@@ -13,11 +13,13 @@ $getopt = new GetOptionKit;
 $getopt->add( 'i|input:=s' , 'option with multiple value' );
 $getopt->add( 'bearer:=s' , 'option with multiple value' );
 $getopt->add( 'stage:=s' , 'option with multiple value' );
+$getopt->add( 'd|debug'   , 'debug flag' );
 
 $cli = $getopt->parse( $argv );
 
 $bearerToken = $cli->bearer;
 $stage = $cli->stage;
+$debug = $cli->debug;
 
 $csvFile = new CsvFile( $cli->input );
 
@@ -68,7 +70,7 @@ else
 
 function pushLocations($client, $data)
 {
-    global $bearerToken;
+    global $debug, $bearerToken;
 
     foreach($data as $d)
     {
@@ -88,7 +90,7 @@ function pushLocations($client, $data)
             ],
             $content,
             [ 
-                'debug' => true
+                'debug' => $debug
             ]
         );
         
@@ -99,7 +101,7 @@ function pushLocations($client, $data)
 
 function pushParameters($client, $data, $parameterType)
 {
-    global $bearerToken;
+    global $debug, $bearerToken;
     
     foreach($data as $d)
     {
@@ -123,8 +125,7 @@ function pushParameters($client, $data, $parameterType)
             ],
             $content,
             [ 
-                'debug' => true,
-                'exceptions' => false
+                'debug' => $debug
             ]
         );
         
