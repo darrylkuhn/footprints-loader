@@ -4,3 +4,7 @@ vendor/*
 
 # Data Directory
 data/*
+
+# Other documents
+*DS_Store
+\#*\#
