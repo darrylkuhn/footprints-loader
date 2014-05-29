@@ -2,7 +2,7 @@
     "require": {
         "php" : ">=5.3.2",
         "keboola/csv": "1.0.*",
-        "corneltek/getoptionkit": "~1.2",
+        "c9s/getoptionkit": "1.2.6",
         "guzzle/guzzle": "3.*"
     }
 }
