@@ -77,14 +77,25 @@ function pushLocations($client, $data)
 
     foreach($data as $d)
     {
-        $d['radius'] = 50;
+        $d['radius'] = 150;
         $d['name'] = str_replace('-', '', $d['name']);
         if ( strlen($d['zipcode']) < 5 )
         {
             $d['zipcode'] = str_pad($d['zipcode'], 5, "0", STR_PAD_LEFT);
         }
 
+        foreach ( $d as $k => $v ) 
+        { 
+            $d[$k] = trim($d[$k]);
+
+            if ( strlen($d[$k]) == 0 ) 
+            { 
+                unset($d[$k]); 
+            }
+        }
+
         $content = json_encode($d);
+
         $request = $client->post(
             '/api/v1/locations', 
             [
@@ -134,6 +145,17 @@ function pushParameters($client, $data, $parameterType)
         }
 
         unset($d['provider_id']);
+
+        foreach ( $d as $k => $v ) 
+        { 
+            $d[$k] = trim($d[$k]);
+
+            if ( strlen($d[$k]) == 0 ) 
+            { 
+                unset($d[$k]); 
+            }
+        }
+
         $req['parameters'] = [$d];
 
         $content = json_encode($req);
