@@ -130,7 +130,7 @@ while( $i < $limit )
     if ($previousDateString ) $dateBounds .= " AND CreatedDate < {$previousDateString}";
 
     $request = $client->get(
-        "/services/data/v29.0/query/?q=SELECT Subject, Owner.Name, ActivityDate, What.Name, Who.Name, Status, IsClosed, CreatedBy.Name, CreatedDate, LastModifiedBy.Name, LastModifiedDate from Task WHERE {$dateBounds} ORDER BY CreatedDate DESC", 
+        "/services/data/v29.0/query/?q=SELECT Subject, Owner.Name, ActivityDate, What.Name, Who.Name, Description, Status, IsClosed, CreatedBy.Name, CreatedDate, LastModifiedBy.Name, LastModifiedDate from Task WHERE {$dateBounds} ORDER BY CreatedDate DESC", 
         [ 'Content-Type' => 'application/json',
           'Authorization' => "Bearer {$bearerToken}" ],
         [ 'debug' => $debug ] );
