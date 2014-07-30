@@ -58,7 +58,7 @@ while( true )
     if ($previousDateString ) $dateBounds .= " AND CreatedDate < {$previousDateString}";
 
     $request = $client->get(
-        "/services/data/v29.0/query/?q=SELECT Name, Email, ID, Title, Department, Division, Manager.Name, City, PostalCode, Country, IsActive, Profile.Name, UserType, LastLoginDate, UserPreferencesHideS1BrowserUI, CreatedBy.Name, CreatedDate, LastModifiedBy.Name, LastModifiedDate FROM User WHERE {$dateBounds} ORDER BY CreatedDate", 
+        "/services/data/v29.0/query/?q=SELECT Name, Email, ID, Title, Department, Division, Manager.Name, City, PostalCode, State, Country, Phone, IsActive, Profile.Name, UserType, LastLoginDate, CreatedBy.Name, CreatedDate, LastModifiedBy.Name, LastModifiedDate FROM User WHERE {$dateBounds} ORDER BY CreatedDate", 
         [ 'Content-Type' => 'application/json',
           'Authorization' => "Bearer {$bearerToken}" ],
         [ 'debug' => $debug ] );
@@ -102,7 +102,7 @@ while( true )
         }
         else 
         {
-            die( "Request failed: ".$e->getResponse()->getReasonPhrase()."\n" );
+            die( "Request {$e->getRequest()} failed: ".$e->getResponse()->getReasonPhrase()."\n" );
         }
     }
 }
@@ -130,7 +130,7 @@ while( $i < $limit )
     if ($previousDateString ) $dateBounds .= " AND CreatedDate < {$previousDateString}";
 
     $request = $client->get(
-        "/services/data/v29.0/query/?q=SELECT Subject, Owner.Name, ActivityDate, What.Name, Who.Name, Status, IsClosed, CreatedBy.Name, CreatedDate, LastModifiedBy.Name, LastModifiedDate from Task WHERE {$dateBounds} ORDER BY CreatedDate DESC", 
+        "/services/data/v29.0/query/?q=SELECT Subject, Owner.Name, ActivityDate, What.Name, Who.Name, Description, Status, IsClosed, CreatedBy.Name, CreatedDate, LastModifiedBy.Name, LastModifiedDate from Task WHERE {$dateBounds} ORDER BY CreatedDate DESC", 
         [ 'Content-Type' => 'application/json',
           'Authorization' => "Bearer {$bearerToken}" ],
         [ 'debug' => $debug ] );
