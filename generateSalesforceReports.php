@@ -111,7 +111,8 @@ while( true )
         }
         else 
         {
-            die( "Request {$e->getRequest()} failed with response: ".$e->getResponse()."\n" );
+            echo "Request {$e->getRequest()} failed with response: ".$e->getResponse()."\n";
+            break;
         }
     }
 }
@@ -183,7 +184,8 @@ while( $i < $limit )
         }
         else 
         {
-            die( "Request failed: ".$e->getResponse()->getReasonPhrase()."\n" );
+            echo "Request {$e->getRequest()} failed with response: ".$e->getResponse()."\n";
+            break;
         }
     }
 }
@@ -256,13 +258,13 @@ while( $i < $limit )
         }
         else 
         {
-            die( "Request failed: ".$e->getResponse()->getReasonPhrase()."\n" );
+            echo "Request {$e->getRequest()} failed with response: ".$e->getResponse()."\n";
+            break;
         }
     }
 }
 
 echo " Complete\n";
-
 
 // Write Task Report
 $records =[];
@@ -330,7 +332,8 @@ while( $i < $limit )
         }
         else 
         {
-            die( "Request failed: ".$e->getResponse()->getReasonPhrase()."\n" );
+            echo "Request {$e->getRequest()} failed with response: ".$e->getResponse()."\n";
+            break;
         }
     }
 }
@@ -366,7 +369,8 @@ catch( Guzzle\Http\Exception\ClientErrorResponseException $e )
     }
     else 
     {
-        die( "Request failed: ".$e->getResponse()->getReasonPhrase()."\n" );
+        echo "Request {$e->getRequest()} failed with response: ".$e->getResponse()."\n";
+        break;
     }
 }
 
