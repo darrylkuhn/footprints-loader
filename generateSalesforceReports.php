@@ -36,7 +36,16 @@ $timeIncrements = [
     '-5 year'
 ];
 
-$client = new Client("https://{$node}.salesforce.com");
+if ( strpos($node, '.') === false )
+{
+	$endpoint = "https://{$node}.salesforce.com";
+}
+else 
+{
+	$endpoint = "https://$node";
+}
+
+$client = new Client($endpoint);
 
 $records =[];
 $increment = 0;
@@ -102,7 +111,7 @@ while( true )
         }
         else 
         {
-            die( "Request {$e->getRequest()} failed: ".$e->getResponse()->getReasonPhrase()."\n" );
+            die( "Request {$e->getRequest()} failed with response: ".$e->getResponse()."\n" );
         }
     }
 }
